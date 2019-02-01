@@ -8,18 +8,20 @@ def load_script():
     f = open('/usr/share/dict/words', 'r')
     content = f.read().splitlines()
     f.close()
-
     return content
 
-def random_generator():
-    content = load_script()
-    return random.sample(content, 7)
+def command_line_input():
 
-def create_string():
-    content_list = random_generator()
-    print(' '.join(content_list))
+    return sys.argv[1:]
+
+def random_generator():
+
+    content = load_script()
+    arg_input = command_line_input()
+    arg_int = int(' '.join(arg_input))
+    return random.choices(content, k=arg_int)
+    # print(random.choices(content, k=arg_int))
 
 
 if __name__ == '__main__':
-    create_string()
-    # sentence.select_random()
+    print(' '.join(random_generator()))
