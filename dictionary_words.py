@@ -20,8 +20,12 @@ def random_generator():
     arg_input = command_line_input()
     arg_int = int(' '.join(arg_input))
     return random.choices(content, k=arg_int)
-    # print(random.choices(content, k=arg_int))
+
+def create_sentence():
+    results = ' '.join(random_generator())
+    print(results)
+    return results
 
 
 if __name__ == '__main__':
-    print(' '.join(random_generator()))
+    create_sentence()
