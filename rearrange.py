@@ -27,8 +27,6 @@ print('Random Order List:', random.sample(sys.argv[1:], len(sys.argv[1:])))
 
 # strReverse(strList)
 
-#An anagram is a play on words created by rearranging the letters   of the original word to make a new word or phrase. ... One example is the word anagram itself. It can be turned into nag a ram!
-
 # non-library way to use it
 # Conner Solution https://github.com/Connor-Cahill/tweet-generator
 # def rearrange_sen(sent):

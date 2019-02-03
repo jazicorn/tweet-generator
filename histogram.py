@@ -1,25 +1,35 @@
 def load_script():
 
-    f = open('words.txt', 'r')
-    # content = f.read().split()
-    content = ['cat', 'cat', 'dog', 'dog', 'animal', 'circus', 'greet']
+    f = open('grimm-fairy-tales.txt', 'r')
+    t = f.readlines()
+    # content = ['cat', 'cat', 'dog', 'dog', 'animal', 'circus', 'greet']
+
     f.close()
 
-    return content
+    return t
 
 
-def create_list():
+def create_sample():
     empty_list = []
-    content = load_script()
-    for word in content[:100]:
-        empty_list.append(word)
-    # print(sample_list)
-    sample_list = tuple(empty_list)
-    return sample_list
+    t = load_script()
 
+    for i in t[1:100]:
+        empty_list.append(i.strip())
+        sample_list = list(filter(None, empty_list))
+    return sample_list
+    
+def create_list():
+    final_list = []
+    sample_list = create_sample()
+    for row in sample_list:
+        string = row.split()
+        for word in string:
+            final_list.append(word)
+    
+    return final_list
 
 def histogram_dictionary():
-    sample_list = load_script()
+    sample_list = create_list()
     dictionary = {}
 
     for word in sample_list:
@@ -33,7 +43,7 @@ def histogram_dictionary():
     print(dictionary)
 
 def histogram_list():
-    sample_list = load_script()
+    sample_list = create_list()
     
     array_list = []
 
@@ -51,13 +61,19 @@ def histogram_list():
             array_list.append([word,1])
 
     print(array_list)
+    return array_list
         
 
-    
-
-
 def histogram_tuple():
-    pass
+    hist_list = histogram_list()
+    print(hist_list)
+
+    histogram_tuple = []
+
+    for word in hist_list:
+        histogram_tuple.append(tuple(word))
+
+    print(histogram_tuple)
 
 
 def histogram():
@@ -84,6 +100,6 @@ def frequency():
     pass
 
 if __name__ == '__main__':
-    # histogram_list()
     histogram_dictionary()
     histogram_list()
+    histogram_tuple()
