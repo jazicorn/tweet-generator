@@ -13,7 +13,7 @@ def create_sample():
     empty_list = []
     t = load_script()
 
-    for i in t[1:100]:
+    for i in t[1:10]:
         empty_list.append(i.strip())
         sample_list = list(filter(None, empty_list))
     return sample_list
@@ -40,14 +40,13 @@ def histogram_dictionary():
             the_value += 1
             dictionary.update({word:the_value})
 
-    print(dictionary)
+    # print(dictionary)
+    return dictionary
 
 def histogram_list():
     sample_list = create_list()
     
     array_list = []
-
-    add_word = False
 
     for word in sample_list:
         add_word = False
@@ -60,20 +59,21 @@ def histogram_list():
         if add_word == False:
             array_list.append([word,1])
 
-    print(array_list)
+    # print(array_list)
     return array_list
         
 
 def histogram_tuple():
     hist_list = histogram_list()
-    print(hist_list)
+    # print(hist_list)
 
     histogram_tuple = []
 
     for word in hist_list:
         histogram_tuple.append(tuple(word))
 
-    print(histogram_tuple)
+    # print(histogram_tuple)
+    return histogram_tuple
 
 
 def histogram():
@@ -100,6 +100,10 @@ def frequency():
     pass
 
 if __name__ == '__main__':
-    histogram_dictionary()
-    histogram_list()
-    histogram_tuple()
+    
+    print("\n Histogram_dictionary: \n {}".format(histogram_dictionary()))
+    print("\n Histogram_list: \n {}".format(histogram_list()))
+    print("\n Histogram_tuple: \n {}".format(histogram_tuple()))
+    # histogram_dictionary()
+    # histogram_list()
+    # histogram_tuple()
