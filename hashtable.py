@@ -39,6 +39,11 @@ class HashTable(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all buckets
         # TODO: Collect all values in each bucket
+        all_values = []
+        for bucket in self.buckets:
+            for key, value in bucket.items():
+                all_values.append(value)
+        return all_values
 
     def items(self):
         """Return a list of all items (key-value pairs) in this hash table.
@@ -55,37 +60,83 @@ class HashTable(object):
         # TODO: Loop through all buckets
         # TODO: Count number of key-value entries in each bucket
 
+        amount_items = []
+
+        count = 0
+
+        for bucket in self.buckets:
+            for key, value in bucket.items():
+                count += 1
+        return count
+
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
+        bucket = self.buckets[index]
         # TODO: Check if key-value entry exists in bucket
+        entry = bucket.find(lambda key_value: key_value[0] == key)
+        # Check out the entry that was returned = is it None?
+        if entry is None:
+            return False
+        else: # entry is not None
+            return True
+        # shorter version
+        return (entry is not None)
 
     def get(self, key):
-        """Return the value associated with the given key, or raise KeyError.
+        """Return the value associated with t wh e given key, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
         # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, return value associated with given key
-        # TODO: Otherwise, raise error to tell user get failed
-        # Hint: raise KeyError('Key not found: {}'.format(key))
+
+        bucket = self.buckets[self._bucket_index(key)]
+        entry = bucket.find(lambda key_value: key_value[0] == key)
+
+        # If found, return value associated with given key
+        if entry is not None: # Found entry
+            return entry[1] # Get value only at index 1
+
+        # Otherwise, raise error to tell user get failed 
+        else:
+            raise KeyError('Key not found: {}'.format(key))
+
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
         TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Find bucket where given key belongs
-        # TODO: Check if key-value entry exists in bucket
-        # TODO: If found, update value associated with given key
-        # TODO: Otherwise, insert given key-value entry into bucket
+        # Find bucket where given key belongs
+        index = self._bucket_index(key)
+        bucket  = self.buckets[index]
+
+        # Check if key-value entry exists in bucket
+        entry = bucket.find(lambda key_value: key_value[0] == key)
+
+        # If found, delete value associated with given key
+        if entry is not None:
+            # delete entry from bucket
+            bucket.delete(entry)
+
+        # Always insert given key-value entry into bucket
+        entry = (key, value)
+        bucket.append(entry)
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Find bucket where given key belongs
+        index = self._bucket_index(key)
+        bucket  = self.buckets[index]
         # TODO: Check if key-value entry exists in bucket
+        entry = bucket.find(lambda key_value: key_value[0] == key)
         # TODO: If found, delete entry associated with given key
+        if entry is not None:
+            # delete entry from bucket
+            bucket.delete(entry)
         # TODO: Otherwise, raise error to tell user delete failed
-        # Hint: raise KeyError('Key not found: {}'.format(key))
+        else:
+            raise KeyError('Key not found: {}'.format(key))
 
 
 def test_hash_table():
