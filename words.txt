@@ -1,9 +1,0 @@
-cat
-dog
-another
-one
-cat
-dog
-dog
-texas
-florida
